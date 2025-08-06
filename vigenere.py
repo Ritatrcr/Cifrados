@@ -3,6 +3,9 @@ def cifrado_vigenere(texto, clave):
     texto_cifrado = ""
     i=0
     for letra in texto:
+        if letra not in alfabeto:
+            texto_cifrado += letra
+            continue
         suma_vigenere = alfabeto.find(letra) + alfabeto.find(clave [i % len(clave)] )
         modulo_abecedario = suma_vigenere % len(alfabeto)
         texto_cifrado += alfabeto[modulo_abecedario]
@@ -14,7 +17,6 @@ def descifrado_vigenere(mensaje_cifrado, clave):
     mensaje_cifrado = mensaje_cifrado.lower()
     mensaje_descifrado = ""
 
-    
     if clave != "":
         i = 0
         for letra in mensaje_cifrado:

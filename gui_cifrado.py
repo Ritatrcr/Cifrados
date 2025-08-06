@@ -38,14 +38,9 @@ def ejecutar():
             resultado = cifrado_vigenere(mensaje, clave)
         else:
             if clave:
-                resultado = cifrado_vigenere(mensaje, clave)
+                resultado = descifrado_vigenere(mensaje, clave)
             else:
-                archivo = filedialog.askopenfilename(title="Selecciona el archivo de diccionario", filetypes=[("Text files", "*.txt")])
-                if not archivo:
-                    return
-                with open(archivo, 'r', encoding='utf-8') as f:
-                    diccionario = f.readlines()
-                vigenere_descifrar(mensaje, diccionario=diccionario)
+                resultado = descifrado_vigenere(mensaje, clave="")
                 return
 
     salida_resultado.delete("1.0", tk.END)
