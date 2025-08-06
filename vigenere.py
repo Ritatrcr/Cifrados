@@ -1,48 +1,50 @@
-def vigenere_cifrar(mensaje, clave):
-    resultado = ""
-    clave_repetida = (clave * (len(mensaje) // len(clave) + 1))[:len(mensaje)]
-    for c, k in zip(mensaje, clave_repetida):
-        if c.isalpha():
-            desplazamiento = ord(k.lower()) - ord('a')
-            base = ord('A') if c.isupper() else ord('a')
-            resultado += chr((ord(c) - base + desplazamiento) % 26 + base)
-        else:
-            resultado += c
-    return resultado
+alfabeto = "abcdefghijklmnopqrstuvwxyz"
+def cifrado_vigenere(texto, clave):
+    texto_cifrado = ""
+    i=0
+    for letra in texto:
+        suma_vigenere = alfabeto.find(letra) + alfabeto.find(clave [i % len(clave)] )
+        modulo_abecedario = suma_vigenere % len(alfabeto)
+        texto_cifrado += alfabeto[modulo_abecedario]
+        i += 1
 
-def vigenere_descifrar(mensaje_cifrado, clave=None, diccionario=None):
-    if clave is not None:
-        resultado = ""
-        clave_repetida = (clave * (len(mensaje_cifrado) // len(clave) + 1))[:len(mensaje_cifrado)]
-        for c, k in zip(mensaje_cifrado, clave_repetida):
-            if c.isalpha():
-                desplazamiento = ord(k.lower()) - ord('a')
-                base = ord('A') if c.isupper() else ord('a')
-                resultado += chr((ord(c) - base - desplazamiento) % 26 + base)
+    return texto_cifrado
+
+def descifrado_vigenere(mensaje_cifrado, clave):
+    mensaje_cifrado = mensaje_cifrado.lower()
+    mensaje_descifrado = ""
+
+    
+    if clave != "":
+        i = 0
+        for letra in mensaje_cifrado:
+            if letra in alfabeto:
+                resta_vigenere = alfabeto.find(letra) - alfabeto.find(clave[i % len(clave)])
+                modulo_abecedario = resta_vigenere % len(alfabeto)
+                mensaje_descifrado += alfabeto[modulo_abecedario]
+                i += 1
             else:
-                resultado += c
-        return resultado
-    elif diccionario is not None:
-        print("Intentando con diccionario de claves...")
-        for k in diccionario:
-            intento = vigenere_descifrar(mensaje_cifrado, k.strip())
-            print(f"Clave '{k.strip()}': {intento}")
+                mensaje_descifrado += letra
+        return mensaje_descifrado
 
-
-
-
-# mensaje = "Hola Mundo"
-# clave = "clave"
-
-# cifrado = vigenere_cifrar(mensaje, clave)
-# print("Cifrado:", cifrado)
-
-# # Descifrado con clave
-# descifrado = vigenere_descifrar(cifrado, clave)
-# print("Descifrado:", descifrado)
-
-# # Descifrado sin clave (con diccionario)
-# with open('rockyou-top100.txt', 'r', encoding='utf-8') as f:
-#     diccionario = f.readlines()
-# vigenere_descifrar(cifrado, diccionario=diccionario)
-
+    else:
+        with open("rockyou-top100.txt", "r", encoding="latin-1", errors="ignore") as f:
+            for posible_clave in f:
+                posible_clave = posible_clave.strip().lower()
+                mensaje_descifrado = ""
+                i = 0
+                for letra in mensaje_cifrado:
+                    if letra in alfabeto:
+                        resta_vigenere = alfabeto.find(letra) - alfabeto.find(posible_clave[i % len(posible_clave)])
+                        modulo_abecedario = resta_vigenere % len(alfabeto)
+                        mensaje_descifrado += alfabeto[modulo_abecedario]
+                        i += 1
+                    else:
+                        mensaje_descifrado += letra 
+                
+                print(f"Clave: {posible_clave} → {mensaje_descifrado}")        
+                
+                
+        
+        print("No se encontró una clave válida en el diccionario.")
+        return None  

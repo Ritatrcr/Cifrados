@@ -2,7 +2,7 @@
 import tkinter as tk
 from tkinter import ttk, messagebox, filedialog
 from cesar import cesar_cifrar, cesar_descifrar
-from vigenere import vigenere_cifrar, vigenere_descifrar
+from vigenere import cifrado_vigenere, descifrado_vigenere
 
 def ejecutar():
     mensaje = entrada_mensaje.get("1.0", tk.END).strip()
@@ -35,10 +35,10 @@ def ejecutar():
             if not clave.isalpha():
                 messagebox.showerror("Error", "La clave debe ser una palabra para el cifrado Vigénère")
                 return
-            resultado = vigenere_cifrar(mensaje, clave)
+            resultado = cifrado_vigenere(mensaje, clave)
         else:
             if clave:
-                resultado = vigenere_descifrar(mensaje, clave)
+                resultado = cifrado_vigenere(mensaje, clave)
             else:
                 archivo = filedialog.askopenfilename(title="Selecciona el archivo de diccionario", filetypes=[("Text files", "*.txt")])
                 if not archivo:
