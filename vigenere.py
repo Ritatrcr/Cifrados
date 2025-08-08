@@ -1,3 +1,6 @@
+import os
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
+
 alfabeto = "abcdefghijklmnopqrstuvwxyz"
 def cifrado_vigenere(texto, clave):
     texto_cifrado = ""

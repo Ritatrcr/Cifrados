@@ -3,6 +3,9 @@ from tkinter import ttk, messagebox, filedialog
 from cesar import cesar_cifrar, cesar_descifrar
 from vigenere import cifrado_vigenere, descifrado_vigenere
 
+import os
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
+
 def ejecutar():
     mensaje = entrada_mensaje.get("1.0", tk.END).strip()
     clave = entrada_clave.get().strip()
